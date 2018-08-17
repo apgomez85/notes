@@ -1,0 +1,22 @@
+{% extends 'base.html' %} {% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-sm-offset-3 col-sm-6">
+      <h1>My Entries</h1>
+      <table class="table">
+        <tr>
+          {% for object in object_list %}
+          <td>
+            <p><a href="{{ object.get_absolute_url }}">{{ object.id }}</a></p>
+          </td>
+          <td>
+            <p><a href="{{ object.get_absolute_url }}">{{ object.title }}</a></p>
+          </td>
+          {% endfor %}
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

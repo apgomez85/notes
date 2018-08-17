@@ -1,0 +1,16 @@
+{% extends 'base.html' %} {% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-sm-offset-3 col-sm-6">
+      <div class="thumbnail">
+        <img src="{{ object.image.url }}" class='img-fluid'>
+      </div>
+
+      <h1>{{ object.title }} <small>{{ object.timestamp|timesince }} ago</small></h1>
+      <p>{{ object.description }}</p>
+      <p>Last Updated: {{ object.updated }}</p>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
