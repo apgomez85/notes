@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from .models import Entry
 from .forms import EntryModelForm
 # Create your views here.
@@ -21,9 +21,13 @@ def entry_detail(request, id):
 
 
 def entry_create(request):
-    form = EntryModelForm(request.POST or None)
+    form = EntryModelForm(request.POST or None, request.FILES)
     if form.is_valid():
-        print(form)
+        form.instance.user = request.user
+        form.save()
+        entry_id = form.instance.id
+        entry = get_object_or_404(Entry, id=entry_id)
+        return redirect(entry.get_absolute_url())
     context = {
         'form': form
     }
