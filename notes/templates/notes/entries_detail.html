@@ -9,6 +9,7 @@
       <h1>{{ object.title }} <small>{{ object.timestamp|timesince }} ago</small></h1>
       <p>{{ object.description }}</p>
       <p>Last Updated: {{ object.updated }}</p>
+      <a href="{{ object.get_update_url }}">Update Now</a>
     </div>
   </div>
 </div>

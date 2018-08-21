@@ -37,8 +37,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # Installed Libraries
+    'crispy_forms',
+
+    # Our own apps
     'notes',
 ]
+
+CRISPY_TEMPLATE_PACK = 'Bootstrap3'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
