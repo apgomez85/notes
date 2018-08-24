@@ -19,3 +19,6 @@ class Entry(models.Model):
 
     def get_update_url(self):
         return '/entries/{0}/update/'.format(self.id)
+
+    def get_delete_url(self):
+        return '/entries/{0}/delete/'.format(self.id)
