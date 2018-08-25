@@ -1,0 +1,13 @@
+<form class='form' method='POST' action='/entries/create/' enctype="multipart/form-data">
+			   	{% csrf_token %}
+                        <div class='form-group'>
+                            <input type='text' class='form-control' name='title' placeholder='Title' />
+                        </div>
+                        <div class='form-group'>
+                            <input type='text' class='form-control' name='description' placeholder='Description' />
+                        </div>
+                        <div class='form-group'>
+                            <input type='file' class='form-control' name='image' />
+                        </div>
+                        <input type="submit" name="submit" class="btn btn-default" placeholder="Submit">
+                      </form>

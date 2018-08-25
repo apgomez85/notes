@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Entry
-from .forms import EntryModelForm
+from .forms import EntryForm
 from django.contrib import messages
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
@@ -31,12 +31,25 @@ def entry_detail(request, id):
 
 @login_required
 def entry_create(request):
-    form = EntryModelForm(request.POST or None, request.FILES or None)
+    form = EntryForm(request.POST or None, request.FILES or None)
     if form.is_valid():
-        form.instance.user = request.user
-        form.save()
-        entry_id = form.instance.id
-        entry = get_object_or_404(Entry, id=entry_id)
+
+        title = request.POST.get('title')
+        description = request.POST.get('description')
+        image = request.FILES.get('image')
+
+        entry = Entry()
+        entry.title = title
+        entry.description = description
+        entry.image = image
+        entry.user = request.user
+        entry.save()
+
+        #For the model form
+        # form.instance.user = request.user
+        # form.save()
+        # entry_id = form.instance.id
+        # entry = get_object_or_404(Entry, id=entry_id)
         messages.info(request, 'Created a New Note.')
         return redirect(entry.get_absolute_url())
     context = {
@@ -48,12 +61,13 @@ def entry_create(request):
 @login_required
 def entry_update(request, id):
     instance = get_object_or_404(Entry, id=id)
-    form = EntryModelForm(request.POST or None,
+    form = EntryForm(request.POST or None,
                           request.FILES or None, instance=instance)
     if form.is_valid():
         form.save()
         entry_id = form.instance.id
         entry = get_object_or_404(Entry, id=entry_id)
+        messages.info(request, 'Successfully Updated the Note.')
         return redirect(entry.get_absolute_url())
     context = {
         'form': form,
